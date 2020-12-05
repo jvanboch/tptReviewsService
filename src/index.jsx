@@ -10,7 +10,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      productId: 12,
+      productId: 0,
       reviews: [],
       sort: {
         ratings: undefined,
@@ -25,7 +25,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.getReviews();
+    this.setState({productId: window.location.pathname.split('/')[2]*1}, () => this.getReviews());
+
   //   axios.get(`/${this.state.productId}/reviews/`)
   //     .then((results) => this.setState({ reviews: results.data.reviews, grades: results.data.grades }));
   }
@@ -54,7 +55,7 @@ class App extends React.Component {
     const reviews = this.state.reviews.map((review, key) => <Review review={review} helpful={this.addHelpful} key={key}/>);
     return (
       <div>
-        <img src="Stats.png"></img>
+        <img src="http://localhost:3000/Stats.png"></img>
         <Sort grades={this.state.grades} onSort={this.onSortChange} />
         {reviews}
       </div>
